@@ -1,2 +1,4 @@
 # Malik324
-this is my first git repository
+This is my first git repository
+Mohid Malik
+
