@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory Manager</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script defer src="./app.js"></script>
+  <!-- html2pdf bundle includes html2canvas + jsPDF -->
+  <script defer src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <header class="container">
+    <h1>Inventory Manager</h1>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Add / Edit Item</h2>
+      <form id="item-form">
+        <div class="grid-2">
+          <label>
+            <span>Name</span>
+            <input type="text" id="name" required placeholder="E.g. Apple iPhone" />
+          </label>
+          <label>
+            <span>Category</span>
+            <input type="text" id="category" required placeholder="E.g. Electronics" />
+          </label>
+        </div>
+        <div class="grid-3">
+          <label>
+            <span>Price</span>
+            <input type="number" id="price" required step="0.01" min="0" placeholder="0.00" />
+          </label>
+          <label>
+            <span>Quantity</span>
+            <input type="number" id="quantity" required step="1" min="0" placeholder="0" />
+          </label>
+          <label>
+            <span>Image</span>
+            <input type="file" id="image" accept="image/*" />
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Add Item</button>
+          <button type="button" id="reset-form" class="btn">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="list-header">
+        <h2>Items</h2>
+        <div class="list-actions">
+          <input type="search" id="search" placeholder="Search by name or category" />
+          <button id="export-list" class="btn">Download List PDF</button>
+        </div>
+      </div>
+      <div id="list-container">
+        <ul id="item-list"></ul>
+        <div id="empty-state" class="muted">No items yet. Add your first item above.</div>
+      </div>
+    </section>
+
+    <dialog id="detail-dialog">
+      <form method="dialog" class="dialog-body" id="detail-content">
+        <header class="dialog-header">
+          <h3 id="detail-name">Item</h3>
+          <button value="close" class="icon-btn" title="Close" aria-label="Close">✖</button>
+        </header>
+        <div class="dialog-grid">
+          <div class="dialog-image">
+            <img id="detail-image" alt="Item image" />
+          </div>
+          <div class="dialog-info">
+            <p><strong>Category:</strong> <span id="detail-category"></span></p>
+            <p><strong>Price:</strong> $<span id="detail-price"></span></p>
+            <p><strong>Quantity:</strong> <span id="detail-quantity"></span></p>
+            <p><strong>Total Value:</strong> $<span id="detail-total"></span></p>
+          </div>
+        </div>
+        <menu class="dialog-actions">
+          <button id="export-item" class="btn">Download Item PDF</button>
+          <button id="delete-item" class="btn danger" value="close">Delete</button>
+          <button value="close" class="btn">Close</button>
+        </menu>
+      </form>
+    </dialog>
+  </main>
+
+  <footer class="container muted small">
+    <span>Local-only demo. Data saved in your browser.</span>
+  </footer>
+</body>
+</html>
+
